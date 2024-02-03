@@ -1,34 +1,51 @@
+// Perform a GET Request
+
+// Using Axios library
 const axios = require('axios');
 
 axios
-  .get('https://example.com/todos')
-  .then(res => {
-    console.log(`statusCode: ${res.status}`);
-    console.log(res);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+    .get('https://example.com/todos')
+    .then(res => {
+        console.log(`statusCode: ${res.status}`);
+        console.log(res);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
-  const https = require('https');
 
-  const options = {
+// Note that the above can also be rewritten as:
+axios
+    .get('https://example.com/todos')
+    .then(function (response) {
+        console.log(`statusCode: ${response.status}`);
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+
+
+// Using only standard Node.js modules (DEFAULT WAY)
+const https = require('https');
+
+const options = {
     hostname: 'example.com',
     port: 443,
     path: '/todos',
-    method: 'GET',
-  };
-  
-  const req = https.request(options, res => {
-    console.log(`statusCode: ${res.statusCode}`);
-  
-    res.on('data', d => {
-      process.stdout.write(d);
+    method: 'GET'
+};
+
+const request = https.request(options, response => {
+    console.log(`statusCode: ${response.statusCode}`);
+
+    response.on('data', d => {
+        process.stdout.write(d);
     });
-  });
-  
-  req.on('error', error => {
+});
+
+request.on('error', error => {
     console.error(error);
-  });
-  
-  req.end();
+});
+
+request.end();

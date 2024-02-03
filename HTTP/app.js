@@ -49,3 +49,16 @@ request.on('error', error => {
 });
 
 request.end();
+
+axios
+    .post('https://whatever.com/todos', {
+        todo: 'watch the superbowl next week'
+    })
+    .then(response => {
+        console.log(`status: ${response.statusCode}`);
+        console.log(response);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+    
